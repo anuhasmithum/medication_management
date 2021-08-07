@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native';
 // import axios from 'axios';
 // import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -9,7 +9,7 @@ const products = { "key": 1, "name": "C vitamin", "key": 2, "stock": "20" };
 
 const ViewOneItem = () => {
 
-    const [quantity, setQuantity] = useState(2);
+    const [quantity, setQuantity] = useState('200 cups');
 
     // componentDidMount() {
     //     const _id = this.props.navigation.getParam('_id', '');
@@ -32,72 +32,50 @@ const ViewOneItem = () => {
 
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            {/* <ActionBar navigation={this.props.navigation} name="ECOM" /> */}
+        <ScrollView>
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.imageStyle}>
+                    <Image
+                        source={{ uri: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx1U-RRz0Tq7zK8RD7hibxBUWfHSNRwbUa7Q&usqp=CAU` }}
+                        style={{ width: '100%', height: '100%', }}
+                    >
+                    </Image>
+                </TouchableOpacity>
 
-            <View style={{ flex: 1, flexDirection: 'column', }}>
-
-                <View style={styles.imageViewStyle}>
-                    <TouchableOpacity style={styles.imageStyle}>
-                        <Image
-                            source={{ uri: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx1U-RRz0Tq7zK8RD7hibxBUWfHSNRwbUa7Q&usqp=CAU` }}
-                            style={{ width: '100%', height: '100%', }}
-                        >
-                        </Image>
-                    </TouchableOpacity>
-
-                    <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white' }}>
-
-                        <View style={styles.imageTextStyle}>
-                            <Text style={{ fontSize: 22, padding: 5 }}>Name: {products.name}</Text>
-                            <Text style={{ fontSize: 16, padding: 5 }}>Available: {products.stock}</Text>
+                <View style={{ flexDirection: 'column', width: '100%' }}>
+                    <Text style={styles.title}>{products.name}</Text>
+                    <TouchableOpacity style={styles.infomation}>
+                        <View>
+                            <Text style={styles.text}>Quantity</Text>
+                            <Text style={styles.text}>{quantity}</Text>
                         </View>
-
-                        {/* <TouchableOpacity
-                            style={{ justifyContent: 'center', }}
-                        >
-                            <Icon
-                                style={{
-                                    width: 50, height: 50, backgroundColor: 'white',
-                                    alignSelf: 'stretch', textAlign: 'center', justifyContent: 'center'
-                                }}
-                                name='cart-plus'
-                                size={45}
-                            />
-                        </TouchableOpacity> */}
-                    </View>
+                        <Icon name="pencil" size={20} style={{ width: 50 }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.infomation}>
+                        <View>
+                            <Text style={styles.text}>Description</Text>
+                            <Text style={styles.text}>Use for infections. Availability is very Limited. Reduce wastage. </Text>
+                        </View>
+                        <Icon name="pencil" size={20} style={{ width: 50 }} />
+                    </TouchableOpacity>
                 </View>
-
-                <View style={styles.changeQuantity}>
-                    <Text style={styles.changeQuantityTitle} >Change Available Quantity</Text>
-                    <TextInput style={styles.inputContainer}
-                        value={quantity}
-                        onChangeText={(val) => setQuantity(val)}
-                        placeholder="New Quantity"
-                        underlineColorAndroid='transparent'
-                    />
-                    <TouchableHighlight underlayColor='#e3d8dd' style={styles.buttonContainer} >
-                        <Text>Save</Text>
-                    </TouchableHighlight>
-                </View>
-
+                <TouchableHighlight underlayColor='#e3d8dd' style={styles.buttonContainer} >
+                    <Text>Save</Text>
+                </TouchableHighlight>
             </View>
-        </View>
-
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-
-    imageViewStyle: {
+    container: {
+        flex: 1,
+        display: 'flex',
         flexDirection: 'column',
-        height: 340,
-        marginHorizontal: 10,
-        justifyContent: 'center',
-        marginVertical: 5,
         alignItems: 'center',
-        // borderWidth: 2,
-        // borderColor: '#eee',
+        justifyContent: 'center',
+        marginHorizontal: 10,
+        marginVertical: 5,
     },
     imageStyle: {
         height: 240,
@@ -106,56 +84,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
     },
-    imageTextStyle: {
-        height: 100,
+    title: {
         alignContent: 'center',
         width: '85%',
-        padding: 20
-
+        fontSize: 24,
+        margin: '5%',
+        fontWeight: 'bold'
     },
-    changeQuantity: {
-        backgroundColor: '#fff',
-        // borderWidth: 2,
-        // borderColor: '#eee',
-        flexDirection: 'column',
-        marginHorizontal: 10,
-        marginVertical: 30,
-        height: 'auto',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        padding: 5,
+    infomation: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'space-between',
+        width: '85%',
+        marginStart: '15%',
+        paddingVertical: 20,
     },
-    changeQuantityTitle: {
-        color: 'black',
-        padding: 20,
-        fontSize: 20,
-        alignSelf: 'flex-start'
-    },
-    inputContainer: {
-        borderBottomColor: '#F5FCFF',
-        backgroundColor: '#eee',
-        borderRadius: 30,
-        borderBottomWidth: 1,
+    text: {
+        marginVertical: 10,
         width: 250,
-        height: 50,
-        marginTop: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 10,
-        padding: 10
     },
     buttonContainer: {
         shadowColor: '#000',
         shadowOpacity: 50,
         elevation: 5,
         height: 45,
-        backgroundColor: "#00b5ec",
+        backgroundColor: "#0055FF",
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         marginBottom: 35,
-        marginTop: 10,
-        width: 100,
+        marginTop: 30,
+        width: 300,
         borderRadius: 30,
     },
 });

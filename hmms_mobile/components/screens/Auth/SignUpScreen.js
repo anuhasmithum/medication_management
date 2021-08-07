@@ -22,9 +22,10 @@ const SignUpScreen = ({navigation}) => {
     const signUp = () => {
         axios
             .post(`http://192.168.8.100:3000/api/regcus`, {
-                name: this.state.controls.name.value,
-                email: this.state.controls.email.value,
-                password: this.state.controls.password.value
+                name: name,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
             })
             .then(res => {
                 if (res.status === 200) {
@@ -102,14 +103,13 @@ const SignUpScreen = ({navigation}) => {
                     <Text style={styles.loginText}>Sign Up</Text>
                 </TouchableHighlight>
 
-                <TouchableHighlight underlayColor='#e3d8dd' style={styles.btnsm} onPress={() => navigation.navigate('LoginScreen')}  >
+                <TouchableHighlight underlayColor='none' style={styles.btnsm} onPress={() => navigation.navigate('LoginScreen')}  >
                     <Text>Login</Text>
                 </TouchableHighlight>
             </View>
         </ScrollView>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {

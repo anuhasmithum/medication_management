@@ -29,18 +29,13 @@ const LoginScreen = ({ navigation }) => {
             .post(`http://192.168.8.100:3000/api/signin`, {
                 email: this.state.controls.email.value,
                 password: this.state.controls.password.value
-
             })
             .then(res => {
-
                 if (res.status === 200) {
-
                     this.setToken(res.data.token);
                     // navigation.navigate('Dashboard');
                 }
-
                 if (res.status === 201) {
-
                     Alert.alert(
                         "Oops",
                         res.data.msg
@@ -78,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.con}>
-            <StatusBar backgroundColor="#252626" barStyle="light-content" />
+            <StatusBar backgroundColor="#0055FF" barStyle="light-content" />
             <View style={styles.container}>
                 <View style={styles.container}>
                     <TextInput style={[styles.inputContainer, email ? styles.inputInvalid : null]}
@@ -107,7 +102,7 @@ const LoginScreen = ({ navigation }) => {
                         <Text style={styles.loginText}>Login</Text>
                     </TouchableHighlight>
 
-                    <TouchableHighlight underlayColor='#e3d8dd' style={styles.btnsm} onPress={() => navigation.navigate('SignUpScreen')}  >
+                    <TouchableHighlight underlayColor='none' style={styles.btnsm} onPress={() => navigation.navigate('SignUpScreen')}  >
                         <Text>Create New Account</Text>
                     </TouchableHighlight>
                 </View>

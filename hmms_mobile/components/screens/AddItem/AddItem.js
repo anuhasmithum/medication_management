@@ -1,135 +1,132 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, TouchableHighlight } from 'react-native';
-// import axios from 'axios';
-// import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, TextInput, TouchableHighlight, } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-// import ActionBar from "../components/ActionBar";
 
 const products = { "key": 1, "name": "C vitamin", "key": 2, "stock": "20" };
 
 const AddItems = () => {
 
     const [quantity, setQuantity] = useState(2);
+    const [isSelected, setIsSelected] = useState(false);
 
-    // componentDidMount() {
-    //     const _id = this.props.navigation.getParam('_id', '');
-    //     axios.get(`http://192.168.8.100:3000/api/product/${_id}`)
-    //         .then(res => {
-    //             const foodsFromServer = res.data;
-    //             this.setState({ foodsFromServer });
-    //         })
+    const updateProps = (event) => {
 
-    // }
+    }
+    const saveImage = (event) => {
 
-    // componentDidUpdate() {
-    //     const _id = this.props.navigation.getParam('_id', '');
-    //     axios.get(`http://192.168.8.100:3000/api/product/${_id}`)
-    //         .then(res => {
-    //             const foodsFromServer = res.data;
-    //             this.setState({ foodsFromServer });
-    //         })
-    // }
-
+    }
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            {/* <ActionBar navigation={this.props.navigation} name="ECOM" /> */}
+        <ScrollView style={styles.container}>
+            <View style={styles.titleView}>
+                <Text style={styles.title}>Add New Medication</Text>
+                <CheckBox
+                    value={isSelected}
+                    onValueChange={(value) => setIsSelected(value)}
+                    style={styles.checkbox}
+                    disabled={false}
+                    tintColors={{ true: '#0055FF', false: '#FF5555' }}
+                />
+            </View>
 
-            <View style={{ flex: 1, flexDirection: 'column', }}>
-
-                <View style={styles.imageViewStyle}>
-                    <TouchableOpacity style={styles.imageStyle}>
-                        <Image
-                            source={{ uri: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx1U-RRz0Tq7zK8RD7hibxBUWfHSNRwbUa7Q&usqp=CAU` }}
-                            style={{ width: '100%', height: '100%', }}
+            <View style={styles.inputContainers}>
+                <View style={styles.inputWrapper}>
+                    <Text style={{ fontSize: 18, padding: 5 }}>Name</Text>
+                    <TextInput
+                        name="name"
+                        style={styles.inputContainer}
+                        onChangeText={updateProps}
+                        // placeholder="Item Name"
+                        underlineColorAndroid='transparent'
+                        editable={isSelected ? true : false}
+                    />
+                </View>
+                <View style={styles.inputWrapper}>
+                    <Text style={{ fontSize: 18, padding: 5 }}>Quantity</Text>
+                    <TextInput
+                        name="quantity"
+                        style={styles.inputContainer}
+                        onChangeText={updateProps}
+                        // placeholder="Quantity"
+                        underlineColorAndroid='transparent'
+                        editable={isSelected ? true : false}
+                    />
+                </View>
+                <View style={styles.inputWrapper}>
+                    <Text style={{ fontSize: 18, padding: 5 }}>Dscreption</Text>
+                    <TextInput
+                        name="descreption"
+                        multiline={true}
+                        numberOfLines={5}
+                        style={styles.inputContainer}
+                        onChangeText={updateProps}
+                        // placeholder="Descreption"
+                        underlineColorAndroid='transparent'
+                        editable={isSelected ? true : false}
+                    />
+                </View>
+                <View style={styles.inputWrapper}>
+                    <Text style={{ fontSize: 18, padding: 5 }}>Upload Image</Text>
+                    <View style={styles.imageContainer}>
+                        <TouchableHighlight
+                            style={styles.selectButton}
+                            onPress={() => { launchCamera({ mediaType: 'photo' }, saveImage) }}
+                            disabled={!isSelected ? true : false}
                         >
-                        </Image>
-                    </TouchableOpacity>
-
-                    <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white' }}>
-
-                        <View style={styles.imageTextStyle}>
-                            <Text style={{ fontSize: 22, padding: 5 }}>Name: {products.name}</Text>
-                            <Text style={{ fontSize: 16, padding: 5 }}>Available: {products.stock}</Text>
-                        </View>
-
-                        {/* <TouchableOpacity
-                            style={{ justifyContent: 'center', }}
-                        >
-                            <Icon
-                                style={{
-                                    width: 50, height: 50, backgroundColor: 'white',
-                                    alignSelf: 'stretch', textAlign: 'center', justifyContent: 'center'
-                                }}
-                                name='cart-plus'
-                                size={45}
-                            />
-                        </TouchableOpacity> */}
+                            <Text>Select Image</Text>
+                        </TouchableHighlight>
+                        <Text style={{ fontSize: 14, padding: 5, marginLeft: 20 }}>Image Name</Text>
                     </View>
                 </View>
 
-                <View style={styles.changeQuantity}>
-                    <Text style={styles.changeQuantityTitle} >Change Available Quantity</Text>
-                    <TextInput style={styles.inputContainer}
-                        value={quantity}
-                        onChangeText={(val) => setQuantity(val)}
-                        placeholder="New Quantity"
-                        underlineColorAndroid='transparent'
-                    />
-                    <TouchableHighlight underlayColor='#e3d8dd' style={styles.buttonContainer} >
-                        <Text>Save</Text>
-                    </TouchableHighlight>
-                </View>
-
+                <TouchableHighlight underlayColor='#e3d8dd' style={styles.buttonContainer} >
+                    <Text>Save</Text>
+                </TouchableHighlight>
             </View>
-        </View>
-
+        </ScrollView >
     );
 }
 
 const styles = StyleSheet.create({
 
-    imageViewStyle: {
+    container: {
+        display: 'flex',
+        flex: 1,
         flexDirection: 'column',
-        height: 340,
-        marginHorizontal: 10,
-        justifyContent: 'center',
-        marginVertical: 5,
-        alignItems: 'center',
-        // borderWidth: 2,
-        // borderColor: '#eee',
+        backgroundColor: '#FFFFFF',
     },
-    imageStyle: {
-        height: 240,
-        backgroundColor: 'green',
-        justifyContent: 'center',
+    titleView: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'center',
+        height: '10%',
+        backgroundColor: '#222',
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    checkbox: {
+        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+        
+    },
+    inputContainers: {
+        display: 'flex',
+        flexDirection: 'column',
         width: '100%',
+        backgroundColor: '#FFFFFF'
     },
-    imageTextStyle: {
-        height: 100,
-        alignContent: 'center',
-        width: '85%',
-        padding: 20
-
-    },
-    changeQuantity: {
-        backgroundColor: '#fff',
-        // borderWidth: 2,
-        // borderColor: '#eee',
+    inputWrapper: {
+        backgroundColor: '#FFFFFF',
         flexDirection: 'column',
-        marginHorizontal: 10,
-        marginVertical: 30,
+        margin: 10,
         height: 'auto',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'space-around',
         padding: 5,
-    },
-    changeQuantityTitle: {
-        color: 'black',
-        padding: 20,
-        fontSize: 20,
-        alignSelf: 'flex-start'
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
@@ -137,25 +134,42 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderBottomWidth: 1,
         width: 250,
-        height: 50,
-        marginTop: 20,
+        marginBottom: 10,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignSelf: 'center',
         margin: 10,
         padding: 10
+    },
+    imageContainer: {
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    },
+    selectButton: {
+        shadowColor: '#000',
+        elevation: 2,
+        height: 45,
+        backgroundColor: "#FFFFFF",
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 25,
+        marginTop: 10,
+        width: 120,
+        borderRadius: 5,
     },
     buttonContainer: {
         shadowColor: '#000',
         shadowOpacity: 50,
-        elevation: 5,
-        height: 45,
-        backgroundColor: "#00b5ec",
-        flexDirection: 'row',
+        height: 50,
+        backgroundColor: "#0055FF",
         justifyContent: 'center',
+        alignSelf: 'center',
         alignItems: 'center',
-        marginBottom: 35,
+        marginBottom: 40,
         marginTop: 10,
-        width: 100,
+        width: 300,
         borderRadius: 30,
     },
 });

@@ -10,7 +10,7 @@ import Cards from '../DashboardComponents/AddNewItem';
 const Dashboard = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor='blue' barStyle="light-content" />
+            <StatusBar backgroundColor='#0055FF' barStyle="light-content" />
             <View style={styles.rowContainer}>
                 <View style={styles.columnContainer} >
                     <Tablets navigation={navigation} />

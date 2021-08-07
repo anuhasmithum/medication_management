@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const Tablets = (props) => {
     console.log(props)
     return (
-        <View style={styles.homeContainer}>
+        <View style={styles.container}>
             <Image
                 source={{ uri: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx1U-RRz0Tq7zK8RD7hibxBUWfHSNRwbUa7Q&usqp=CAU` }}
                 style={{ width: 150, height: 120, marginTop: 30, borderRadius: 10 }}
@@ -25,7 +25,7 @@ const Tablets = (props) => {
 };
 
 const styles = StyleSheet.create({
-    homeContainer: {
+    container: {
         flexDirection: 'column',
         height: '150%',
         backgroundColor: '#fff',
